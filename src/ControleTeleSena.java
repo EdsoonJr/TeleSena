@@ -85,51 +85,50 @@ public class ControleTeleSena {
 
     public void mostrarResultado() {
 
-    final String RESET = "\u001B[0m";
-    final String BOLD = "\u001B[1m";
-    final String YELLOW = "\u001B[33m";
-    final String CYAN = "\u001B[36m";
-    final String GREEN = "\u001B[32m";
-    final String WHITE = "\u001B[37m";
+        final String RESET = "\u001B[0m";
+        final String BOLD = "\u001B[1m";
+        final String YELLOW = "\u001B[33m";
+        final String CYAN = "\u001B[36m";
+        final String GREEN = "\u001B[32m";
+        final String WHITE = "\u001B[37m";
 
-    System.out.println("\n" + CYAN + "========================================" + RESET);
-    System.out.println("    " + BOLD + YELLOW + "RESULTADO FINAL DA TELE SENA!" + RESET);
-    System.out.println(CYAN + "========================================\n" + RESET);
+        System.out.println("\n" + CYAN + "========================================" + RESET);
+        System.out.println("    " + BOLD + YELLOW + "RESULTADO FINAL DA TELE SENA!" + RESET);
+        System.out.println(CYAN + "========================================\n" + RESET);
 
+        System.out.println(BOLD + "Números Sorteados (" + qtdSorteados + "):" + RESET);
 
-    System.out.println(BOLD + "Números Sorteados (" + qtdSorteados + "):" + RESET);
+        for (int i = 0; i < qtdSorteados; i++) {
+            System.out.printf(YELLOW + "%02d " + RESET, numerosSorteados[i]);
 
-    for (int i = 0; i < qtdSorteados; i++) {
-        System.out.printf(YELLOW + "%02d " + RESET, numerosSorteados[i]);
-
-        if ((i + 1) % 10 == 0) {
-            System.out.println();
+            if ((i + 1) % 10 == 0) {
+                System.out.println();
+            }
         }
+
+        System.out.println("\n" + CYAN + "----------------------------------------" + RESET);
+        System.out.println(BOLD + "Tele Senas Vendidas: " + RESET + teleSenasVendidas);
+        System.out.println(BOLD + "Quantidade de Ganhadores: " + RESET + qtdGanhadores);
+        System.out.println(CYAN + "----------------------------------------\n" + RESET);
+
+        double totalVendas = teleSenasVendidas * TeleSena.VALOR_VENDA;
+        double premioTotal = totalVendas * 0.8;
+        double premioPorGanhador = premioTotal / qtdGanhadores;
+
+        System.out.println(BOLD + GREEN + "GANHADORES:" + RESET);
+
+        for (int i = 0; i < qtdGanhadores; i++) {
+            ganhadores[i].adicionarPremio(premioPorGanhador);
+            System.out.printf(" - " + WHITE + "%s" + RESET + " | Prêmio: " + GREEN + "R$ %.2f" + RESET + "%n",
+                    ganhadores[i].getNome(),
+                    premioPorGanhador);
+        }
+
+        System.out.println("\n" + CYAN + "----------------------------------------" + RESET);
+        System.out.printf(BOLD + "Total Arrecadado: " + RESET + "R$ %.2f%n", totalVendas);
+        System.out.printf(BOLD + "Total Pago em Prêmios: " + RESET + "R$ %.2f%n", premioTotal);
+        System.out.printf(BOLD + "Lucro Obtido: " + RESET + "R$ %.2f%n", (totalVendas - premioTotal));
+        System.out.println(CYAN + "========================================\n" + RESET);
     }
-
-    System.out.println("\n" + CYAN + "----------------------------------------" + RESET);
-    System.out.println(BOLD + "Tele Senas Vendidas: " + RESET + teleSenasVendidas);
-    System.out.println(BOLD + "Quantidade de Ganhadores: " + RESET + qtdGanhadores);
-    System.out.println(CYAN + "----------------------------------------\n" + RESET);
-
-    double totalVendas = teleSenasVendidas * TeleSena.VALOR_VENDA;
-    double premioTotal = totalVendas * 0.8;
-    double premioPorGanhador = premioTotal / qtdGanhadores;
-
-    System.out.println(BOLD + GREEN + "GANHADORES:" + RESET);
-
-    for (int i = 0; i < qtdGanhadores; i++) {
-        ganhadores[i].adicionarPremio(premioPorGanhador);
-        System.out.printf(" - " + WHITE + "%s" + RESET + " | Prêmio: " + GREEN + "R$ %.2f" + RESET + "%n",
-                ganhadores[i].getNome(),
-                premioPorGanhador);
-    }
-
-    System.out.println("\n" + CYAN + "----------------------------------------" + RESET);
-    System.out.printf(BOLD + "Total Arrecadado: " + RESET + "R$ %.2f%n", totalVendas);
-    System.out.printf(BOLD + "Total Pago em Prêmios: " + RESET + "R$ %.2f%n", premioTotal);
-    System.out.printf(BOLD + "Lucro Obtido: " + RESET + "R$ %.2f%n", (totalVendas - premioTotal));
-    System.out.println(CYAN + "========================================\n" + RESET);
-}
 
 }
